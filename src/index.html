@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PicMarkr – Batch Image Watermarker Tool</title>
+
+    <!-- Include the main stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Favicon for the application -->
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="PicMarkr" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- JSZip for handling ZIP files -->
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+    <!-- FileSaver.js for saving files -->
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+  </head>
+  <body>
+    <!-- Main container for the application -->
+    <div id="container">
+      <h1>PicMarkr – Batch Image Watermarker Tool</h1>
+
+      <!-- Controls for image upload and settings -->
+      <div id="controls">
+        <!-- Row for image upload -->
+        <div class="controls-row">
+          <button id="image-upload-btn">Upload Image(s)</button>
+          <input type="file" id="image-upload" class="hide" accept="image/*" multiple />
+          <span id="image-name-display" class="hide"></span>
+        </div>
+
+        <!-- Row for settings and options -->
+        <div class="controls-row">
+          <label><input type="checkbox" id="keep-original" /> Keep Original Size</label>
+          <label><input type="checkbox" id="add-gradient" /> Add Gradient Layer</label>
+          <label>
+            Logo Position:
+            <select id="logo-position">
+              <option value="top-left">Top Left</option>
+              <option value="top-right">Top Right</option>
+              <option value="bottom-left">Bottom Left</option>
+              <option value="bottom-right">Bottom Right</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Row for download button -->
+        <div class="controls-row">
+          <button id="download-btn" disabled>Download Image(s)</button>
+        </div>
+      </div>
+
+      <!-- Canvas for image cropping -->
+      <div id="canvas-wrapper">
+        <canvas id="canvas" width="1080" height="1350"></canvas>
+      </div>
+
+      <!-- Navigation for multiple images -->
+      <div id="image-nav" class="hide">
+        <button id="prev-btn">&lt; Prev</button>
+        <span id="image-counter">Image 1 of N</span>
+        <button id="next-btn">Next &gt;</button>
+      </div>
+
+      <!-- Instructions for users -->
+      <p id="instructions">Tip: Drag image to crop if not keeping original size.</p>
+    </div>
+
+    <!-- Include the main script -->
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- White background -->
+  <rect width="64" height="64" rx="14" fill="#fff"/>
+  <!-- Small photo rectangle -->
+  <rect x="14" y="20" width="36" height="24" rx="4" fill="none" stroke="#0d6efd" stroke-width="3"/>
+  <!-- Centered zigzag (3 segments, 4 points) -->
+  <polyline
+    points="22,36 28,28 36,36 42,28"
+    fill="none"
+    stroke="#0d6efd"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+</svg>
