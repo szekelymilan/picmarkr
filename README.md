@@ -92,8 +92,7 @@ Default logo is in `logo.svg` — you are encouraged to swap in your own!
 
 ## 🤝 Contributing
 
-Pull requests and suggestions are welcome!
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Pull requests and suggestions are always welcome!
 
 ---
 
