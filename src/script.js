@@ -8,6 +8,7 @@ const FILE_NAME_SUFFIX = '-watermarked'; // Suffix for downloaded files (set to 
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const canvasWrapper = document.getElementById('canvas-wrapper');
 const imageUploadBtn = document.getElementById('image-upload-btn');
 const imageUpload = document.getElementById('image-upload');
 const imageNameDisplay = document.getElementById('image-name-display');
@@ -99,6 +100,20 @@ function fitImageToCanvas(img, keepOriginal) {
   return { drawW, drawH, offsetX, offsetY, maxOffsetX, maxOffsetY };
 }
 
+// Fix for Chrome's canvas size issue by setting the display size explicitly.
+function setCanvasDisplaySize() {
+  canvas.style.height = canvasWrapper.clientHeight + 'px';
+  canvas.style.width = canvasWrapper.clientHeight * (canvas.width / canvas.height) + 'px';
+}
+
+const resizeObserver = new ResizeObserver((entries) => {
+  // Resize the canvas when the wrapper size changes.
+  setCanvasDisplaySize();
+});
+
+// Observe the canvas wrapper for size changes.
+resizeObserver.observe(canvasWrapper);
+
 // Render the current image based on the current settings.
 function renderCurrent() {
   if (images.length <= currentImageIndex) return;
@@ -114,6 +129,9 @@ function renderCurrent() {
     canvas.width = CROP_WIDTH;
     canvas.height = CROP_HEIGHT;
   }
+
+  // Fix for Chrome's canvas size issue.
+  setCanvasDisplaySize();
 
   // Draw the image.
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -385,4 +403,5 @@ downloadBtn.addEventListener('click', async () => {
   imageNameDisplay.classList.add('hide');
   downloadBtn.disabled = true;
   imageNav.classList.add('hide');
+  setCanvasDisplaySize();
 })();
