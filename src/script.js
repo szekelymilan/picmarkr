@@ -15,6 +15,7 @@ const imageNameDisplay = document.getElementById('image-name-display');
 const keepOriginalChk = document.getElementById('keep-original');
 const addGradientChk = document.getElementById('add-gradient');
 const logoPositionSel = document.getElementById('logo-position');
+const applyToAllBtn = document.getElementById('apply-to-all-btn');
 const downloadBtn = document.getElementById('download-btn');
 const imageNav = document.getElementById('image-nav');
 const prevBtn = document.getElementById('prev-btn');
@@ -186,16 +187,19 @@ imageUpload.addEventListener('change', (e) => {
     imageNameDisplay.classList.remove('hide');
     downloadBtn.disabled = false;
     imageNav.classList.add('hide');
+    applyToAllBtn.classList.add('hide');
   } else if (files.length > 1) {
     imageNameDisplay.textContent = `${files.length} images selected`;
     imageNameDisplay.classList.remove('hide');
     downloadBtn.disabled = false;
     imageNav.classList.remove('hide');
+    applyToAllBtn.classList.remove('hide');
   } else {
     imageNameDisplay.textContent = '';
     imageNameDisplay.classList.add('hide');
     downloadBtn.disabled = true;
     imageNav.classList.add('hide');
+    applyToAllBtn.classList.add('hide');
     return;
   }
 
@@ -284,6 +288,21 @@ logoPositionSel.addEventListener('change', () => {
 
   const settings = images[currentImageIndex].settings;
   settings.logoPosition = logoPositionSel.value;
+
+  renderCurrent();
+});
+
+// Apply settings to all images when the `Apply to All` button is clicked.
+applyToAllBtn.addEventListener('click', () => {
+  if (images.length <= currentImageIndex) return;
+
+  const settings = images[currentImageIndex].settings;
+  images.forEach((imgObj) => {
+    imgObj.settings.keepOriginal = keepOriginalChk.checked;
+    imgObj.settings.addGradient = addGradientChk.checked;
+    imgObj.settings.logoPosition = logoPositionSel.value;
+    Object.assign(imgObj.settings, fitImageToCanvas(imgObj.img, imgObj.settings.keepOriginal));
+  });
 
   renderCurrent();
 });
@@ -403,5 +422,6 @@ downloadBtn.addEventListener('click', async () => {
   imageNameDisplay.classList.add('hide');
   downloadBtn.disabled = true;
   imageNav.classList.add('hide');
+  applyToAllBtn.classList.add('hide');
   setCanvasDisplaySize();
 })();

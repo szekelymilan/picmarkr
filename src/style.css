@@ -99,6 +99,11 @@ button:not(:disabled):active {
   background: #084298;
 }
 
+.btn-small {
+  padding: 6px 16px;
+  font-size: 0.9em;
+}
+
 #canvas-wrapper {
   display: block;
   margin-bottom: 12px;
